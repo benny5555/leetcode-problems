@@ -4,6 +4,7 @@
     "vector": "cpp",
     "utility": "cpp",
     "random": "cpp",
-    "limits": "cpp"
+    "limits": "cpp",
+    "functional": "cpp"
   }
 }
