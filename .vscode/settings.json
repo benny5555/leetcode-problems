@@ -5,6 +5,7 @@
     "utility": "cpp",
     "random": "cpp",
     "limits": "cpp",
-    "functional": "cpp"
+    "functional": "cpp",
+    "queue": "cpp"
   }
 }
