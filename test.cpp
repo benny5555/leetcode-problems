@@ -2,6 +2,6 @@
 using namespace std;
 
 int main() {
-  make_pair(1, "hello world");
+  string s;
   return 0;
 }
