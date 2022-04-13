@@ -6,6 +6,7 @@
     "random": "cpp",
     "limits": "cpp",
     "functional": "cpp",
-    "queue": "cpp"
+    "queue": "cpp",
+    "numeric": "cpp"
   }
 }
