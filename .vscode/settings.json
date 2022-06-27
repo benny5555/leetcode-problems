@@ -7,6 +7,8 @@
     "limits": "cpp",
     "functional": "cpp",
     "queue": "cpp",
-    "numeric": "cpp"
+    "numeric": "cpp",
+    "xtree": "cpp",
+    "ostream": "cpp"
   }
 }
