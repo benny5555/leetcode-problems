@@ -1,34 +1,42 @@
 #include <bits/stdc++.h>
 using namespace std;
 class MyQueue {
-  stack<int> stk1, stk2;
-
  public:
+  stack<int> s1, s2;
   MyQueue() {}
 
-  void push(int x) { stk1.push(x); }
+  void push(int x) { s1.push(x); }
 
   int pop() {
-    if (stk2.empty()) {
-      while (stk1.size()) {
-        stk2.push(stk1.top());
-        stk1.pop();
+    if (!s2.size()) {
+      while (s1.size()) {
+        s2.push(s1.top());
+        s1.pop();
       }
     }
-    auto ans = stk2.top();
-    stk2.pop();
+    int ans = s2.top();
+    s2.pop();
     return ans;
   }
 
   int peek() {
-    if (stk2.empty()) {
-      while (stk1.size()) {
-        stk2.push(stk1.top());
-        stk1.pop();
+    if (!s2.size()) {
+      while (s1.size()) {
+        s2.push(s1.top());
+        s1.pop();
       }
     }
-    return stk2.top();
+    return s2.top();
   }
 
-  bool empty() { return stk1.empty() && stk2.empty(); }
+  bool empty() { return s1.empty() && s2.empty(); }
 };
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue* obj = new MyQueue();
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * int param_3 = obj->peek();
+ * bool param_4 = obj->empty();
+ */
