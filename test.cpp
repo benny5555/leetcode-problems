@@ -1,28 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 class Solution {
  public:
-  vector<int> cycleLengthQueries(int n, vector<vector<int>>& queries) {
-    vector<int> ans(queries.size());
-    for (int i = 0; i < queries.size(); ++i) {
-      int a = queries[i][0], b = queries[i][1];
-      int temp = 2;
-      while (1) {
-        if (a == b) {
-          printf("a = %d, b = %d\n", a, b);
-          break;
-        }
-
-        if (a > b) {
-          a /= 2;
-        } else {
-          b /= 2;
-        }
-        ++temp;
-      }
-      ans[i] = temp - 1;
+  int closetTarget(vector<string>& words, string target, int startIndex) {
+    unordered_map<string, vector<int>> m;
+    for (int i = 0; i < words.size(); ++i) {
+      m[words[i]].push_back(i);
     }
-    return ans;
+    int n = words.size();
+    if (!m.count(target)) return -1;
+    int a = abs(startIndex - m[target]);
+    int b = INT_MAX;
+    for (int i = 0; i < words.size(); ++i) {
+      if ((startIndex - i) % n == m[target]) {
+        b = i;
+        break;
+      }
+    }
+    return min(a, b);
   }
 };
