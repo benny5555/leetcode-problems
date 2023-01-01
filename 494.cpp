@@ -12,11 +12,8 @@ class Solution {
     vector<int> dp(neg + 1);
     dp[0] = 1;
     for (int num : nums) {
-      for (int j = neg; j >= 1; --j) {
-        dp[j] = dp[j - 1];
-        if (j >= num) {
-          dp[j] += dp[j - num];
-        }
+      for (int j = neg; j >= num; --j) {
+        dp[j] += dp[j - num];
       }
     }
     return dp[neg];
