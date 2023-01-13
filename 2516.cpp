@@ -1,26 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
 class Solution {
-  char characters[3] = {'a', 'b', 'c'};
+  unordered_set<char> cha{'a', 'b', 'c'};
 
  public:
   int takeCharacters(string s, int k) {
-    int exclude[256]{}, cnt[256]{};
+    unordered_map<char, int> exclude;
+    exclude['a'] = exclude['b'] = exclude['c'] = -k;
     for (auto c : s) {
       ++exclude[c];
     }
-    for (auto c : characters) {
-      exclude[c] -= k;
+    for (auto c : cha) {
       if (exclude[c] < 0) return -1;
     }
-    int middle = 0;
-    for (int left = 0, right = 0; right < s.size(); ++right) {
-      ++cnt[s[right]];
-      while (cnt[s[right]] > exclude[s[right]]) {
-        --cnt[s[left++]];
+    unordered_map<char, int> cnt;
+    for (auto c : s) cnt[c] = 0;
+    int mid = INT_MIN;
+    for (int i = 0, j = 0; s[j]; ++j) {
+      ++cnt[s[j]];
+      while (cnt[s[j]] > exclude[s[j]]) {
+        --cnt[s[i++]];
       }
-      middle = max(middle, right - left + 1);
+      if (j - i + 1 > mid) mid = j - i + 1;
     }
-    return s.size() - middle;
+    return s.size() - mid;
   }
 };

@@ -8,8 +8,7 @@ class Solution {
     if (!root || root == p || root == q) return root;
     auto left = lowestCommonAncestor(root->left, p, q),
          right = lowestCommonAncestor(root->right, p, q);
-    if (!left && !right) return nullptr;
     if (left && right) return root;
-    return left == nullptr ? right : left;
+    return !left ? right : left;
   }
 };

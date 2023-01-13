@@ -8,7 +8,7 @@ class Solution {
     primes[0] = primes[1] = false;
     for (int i = 2; i < 1000001; ++i) {
       if (primes[i]) {
-        int t = 1000001 / i;
+        int t = 1000005 / i;
         for (int j = 2; j < t; ++j) {
           primes[i * j] = false;
         }

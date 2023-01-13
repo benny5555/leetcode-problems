@@ -3,19 +3,36 @@
 #include "leetcode.h"
 using namespace std;
 class Solution {
- private:
-  TreeNode* ans = nullptr;
   unordered_set<TreeNode*> s;
-  int dfs(TreeNode* root) {
-    int cnt = !root ? 0 : s.count(root) + dfs(root->left) + dfs(root->right);
-    if (cnt == s.size() && !ans) ans = root;
-    return cnt;
+  TreeNode* dfs(TreeNode* root) {
+    if (!root) return root;
+    if (s.count(root)) return root;
+    auto left = dfs(root->left), right = dfs(root->right);
+    if (left && right) return root;
+    return left ? left : right;
   }
 
  public:
   TreeNode* lowestCommonAncestor(TreeNode* root, vector<TreeNode*>& nodes) {
     s = unordered_set<TreeNode*>(nodes.begin(), nodes.end());
-    dfs(root);
-    return ans;
+    return dfs(root);
   }
+  //   TreeNode* ans = nullptr;
+  //   unordered_set<TreeNode*> s;
+  //   int dfs(TreeNode* root) {
+  //     if (!root) return 0;
+  //     int cnt = dfs(root->left) + dfs(root->right) + s.count(root);
+  //     if (cnt == s.size() && ans == nullptr) {
+  //       ans = root;
+  //     }
+  //     return cnt;
+  //   }
+
+  //  public:
+  //   TreeNode* lowestCommonAncestor(TreeNode* root, vector<TreeNode*>& nodes)
+  //   {
+  //     s = unordered_set<TreeNode*>(nodes.begin(), nodes.end());
+  //     dfs(root);
+  //     return ans;
+  //   }
 };
