@@ -2,9 +2,8 @@
 
 #include "leetcode.h"
 using namespace std;
-
 class Solution {
- private:
+ public:
   int ans = -1;
   int dfs(TreeNode* root, int p, int q) {
     if (!root) return -1;
@@ -18,12 +17,10 @@ class Solution {
       ans = left + right + 2;
       return -1;
     }
-    if (left >= 0) return 1 + left;
-    if (right >= 0) return 1 + right;
+    if (left >= 0) return left + 1;
+    if (right >= 0) return right + 1;
     return -1;
   }
-
- public:
   int findDistance(TreeNode* root, int p, int q) {
     if (p == q) return 0;
     dfs(root, p, q);

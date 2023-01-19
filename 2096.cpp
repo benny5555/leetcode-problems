@@ -3,7 +3,6 @@
 #include "leetcode.h"
 using namespace std;
 class Solution {
- private:
   bool dfs(TreeNode* root, int value, string& s) {
     if (!root) return false;
     if (root->val == value) return true;
@@ -12,18 +11,20 @@ class Solution {
     } else if (dfs(root->right, value, s)) {
       s.push_back('R');
     }
-    return !s.empty();
+    return s.size();
   }
 
  public:
   string getDirections(TreeNode* root, int startValue, int destValue) {
-    string s, d;
-    dfs(root, startValue, s);
-    dfs(root, destValue, d);
-    while (s.size() && d.size() && s.back() == d.back())
-      s.pop_back(), d.pop_back();
-    for (int i = 0; s[i]; ++i) s[i] = 'U';
-    reverse(d.begin(), d.end());
-    return s + d;
+    string start, end;
+    dfs(root, startValue, start);
+    dfs(root, destValue, end);
+    while (start.size() && end.size() && start.back() == end.back()) {
+      start.pop_back(), end.pop_back();
+    }
+    transform(start.begin(), start.end(), start.begin(),
+              [](char c) { return c = 'U'; });
+    reverse(end.begin(), end.end());
+    return start + end;
   }
 };
