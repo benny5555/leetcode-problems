@@ -1,19 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 class Solution {
+  int ans = INT_MIN;
   vector<vector<int>> children;
-  int ans = 0;
   int dfs(const string& s, int now) {
-    // count the subtree's longest paths.
-    int sub1 = 0, sub2 = 0;
+    int largest = 0, second_largest = 0, cur = 0;
     for (auto next : children[now]) {
-      int cur = dfs(s, next);
-      if (s[now] == s[next]) continue;
-      if (cur > sub2) sub2 = cur;
-      if (sub2 > sub1) swap(sub1, sub2);
+      cur = dfs(s, next);
+      if (s[next] == s[now]) continue;
+      if (cur >= largest) {
+        second_largest = largest;
+        largest = cur;
+      } else if (cur > second_largest) {
+        second_largest = cur;
+      }
     }
-    ans = max(ans, sub1 + sub2 + 1);
-    return sub1 + 1;
+    ans = max(ans, largest + second_largest + 1);
+    return largest + 1;
   }
 
  public:

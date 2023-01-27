@@ -19,34 +19,34 @@ struct UnionFind {
   }
 };
 class Solution {
+#define v vector
+
  public:
   int numberOfGoodPaths(vector<int>& vals, vector<vector<int>>& edges) {
-    int ans = 0, n = vals.size();
-    vector<vector<int>> graph(n);
-    map<int, vector<int>> samevals_ind;
+    int n = vals.size();
+    v<v<int>> graph(n);
     for (auto& e : edges) {
-      int u = e[0], v = e[1];
-      if (vals[u] >= vals[v]) {
-        graph[u].push_back(v);
-      } else if (vals[v] >= vals[u]) {
-        graph[v].push_back(u);
-      }
+      if (vals[e[1]] <= vals[e[0]]) graph[e[0]].push_back(e[1]);
+      if (vals[e[0]] <= vals[e[1]]) graph[e[1]].push_back(e[0]);
     }
+    map<int, v<int>> sameval_ind;
     for (int i = 0; i < n; ++i) {
-      samevals_ind[vals[i]].push_back(i);
+      sameval_ind[vals[i]].push_back(i);
     }
+    int ans = 0;
     UnionFind<int> uf(n);
-    for (auto& [val, ind] : samevals_ind) {
-      for (int now : ind) {
-        for (int next : graph[now]) {
+    for (auto& [val, ind] : sameval_ind) {
+      for (auto now : ind) {
+        for (auto next : graph[now]) {
+          if (next == now) continue;
           uf.unite(now, next);
         }
       }
       unordered_map<int, int> group;
-      for (auto val : ind) {
-        ++group[uf.find(val)];
-      }
       ans += ind.size();
+      for (auto i : ind) {
+        group[uf.find(i)]++;
+      }
       for (auto& [_, cnt] : group) {
         ans += (cnt * (cnt - 1)) / 2;
       }

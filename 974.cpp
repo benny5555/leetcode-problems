@@ -7,7 +7,7 @@ class Solution {
     cnt[0] = 1;
     int presum = 0, ans = 0;
     for (int num : nums) {
-      presum = (presum + a % k + k) % k;
+      presum = (presum + num % k + k) % k;
       ans += cnt[presum]++;
     }
     return ans;

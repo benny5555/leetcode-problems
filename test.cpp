@@ -1,41 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
-class Solution {
-  struct worker {
-    int left_to_right, pick_old, right_to_left, put_new, ind, time;
-    worker(int a, int b, int c, int d, int e, int f = 0)
-        : left_to_right(a),
-          pick_old(b),
-          right_to_left(c),
-          put_new(d),
-          ind(e),
-          time(f) {}
-    bool operator<(const worker& b) const {
-      if (left_to_right + right_to_left == b.left_to_right + b.right_to_left)
-        return ind < b.ind;
-      return left_to_right + right_to_left < b.left_to_right + b.right_to_left;
+int solution(vector<int> &A) {
+  int n = A.size(), start_odd = 1, start_even = 0, ans = 0;
+  for (int i = 0; i < n; ++i) {
+    if (i % 2 == 0 && A[i] == A[start_even]) {
+      ans = max(ans, i - min(start_even, start_odd) + 1);
+    } else if (i % 2 == 1 && A[i] == A[start_odd]) {
+      ans = max(ans, i - min(start_even, start_odd) + 1);
+    } else if (i & 1) {
+      start_odd = i;
+    } else {
+      start_even = i;
     }
-  };
-
- public:
-  int findCrossingTime(int n, int k, vector<vector<int>>& time) {
-    priority_queue<worker, vector<worker>, less<>> left, right, to_put, picking;
-    for (int i = 0; i < k; ++i) {
-      left.push(worker(time[i][0], time[i][1], time[i][2], time[i][3], i));
-    }
-    int ans = 0;
-    int now = 0;
-    while (n) {
-      while (right.size()) {
-        auto temp = right.top();
-        right.pop();
-        now += temp.right_to_left;
-        ans = now;
-        picking.push(temp);
-      }
-      auto worker = left.top();
-      left.pop();
-    }
-    return ans;
   }
-};
+  return ans;
+}
+
+int main() {
+  vector<vector<int>> v;
+  v.push_back({3, 2, 3, 2, 3});
+  v.push_back({7, 4, -2, 4, -2, -9});
+  v.push_back({7, -5, -5, -5, 7, -1, 7});
+  v.push_back({4});
+  v.push_back({7, 3, 1});
+  for (auto &temp : v) {
+    cout << solution(temp) << endl;
+  }
+  return 0;
+}
