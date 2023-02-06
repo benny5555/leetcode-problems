@@ -3,7 +3,6 @@ using namespace std;
 struct Diff2d {
   vector<vector<int>> diff;
   void set(int m, int n, vector<vector<int>>& arr) {
-    diff.assign(m, vector<int>(n));
     for (auto& a : arr) {
       int x1 = a[0], y1 = a[1], x2 = a[2], y2 = a[3];
       ++diff[x1][y1];
@@ -24,14 +23,5 @@ struct Diff2d {
         diff[i][j] += diff[i - 1][j];
       }
     }
-  }
-};
-class Solution {
- public:
-  vector<vector<int>> rangeAddQueries(int n, vector<vector<int>>& queries) {
-    Diff2d ans;
-    ans.set(n, n, queries);
-    ans.sum();
-    return ans.diff;
   }
 };
