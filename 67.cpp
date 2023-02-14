@@ -8,11 +8,11 @@ class Solution {
          i >= 0 || j >= 0 || flag; --i, --j) {
       int x = i >= 0 ? a[i] - '0' : 0, y = j >= 0 ? b[j] - '0' : 0;
       int temp = x + y + flag;
+      flag = 0;
       if (temp > 1) {
-        temp -= 2;
-        flag = 1;
-      } else
-        flag = 0;
+        flag = temp / 2;
+        temp %= 2;
+      }
       ans.push_back(temp + '0');
     }
     reverse(ans.begin(), ans.end());
