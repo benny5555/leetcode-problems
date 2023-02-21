@@ -6,9 +6,10 @@ class Solution {
  public:
   TreeNode* invertTree(TreeNode* root) {
     if (!root) return root;
-    auto left = invertTree(root->right);
-    auto right = invertTree(root->left);
-    root->left = left, root->right = right;
+    auto left = root->left, right = root->right;
+    invertTree(root->left);
+    invertTree(root->right);
+    root->left = right, root->right = left;
     return root;
   }
 };

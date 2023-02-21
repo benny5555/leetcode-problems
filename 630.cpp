@@ -12,7 +12,7 @@ class Solution {
     for (auto& course : courses) {
       curtime += course[0];
       pq.push(course[0]);
-      if (cutime > course[1]) {
+      if (curtime > course[1]) {
         curtime -= pq.top();
         pq.pop();
       }
