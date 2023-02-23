@@ -4,19 +4,20 @@ class Solution {
  public:
   int findMaximizedCapital(int k, int w, vector<int>& profits,
                            vector<int>& capital) {
-    int n = capital.size(), i = 0;
+    int n = profits.size(), i = 0;
     vector<int> ind(n);
     iota(ind.begin(), ind.end(), 0);
     sort(ind.begin(), ind.end(),
          [&](int a, int b) { return capital[a] < capital[b]; });
-    priority_queue<int> profit;
+    priority_queue<int> pq;
+
     while (k--) {
-      while (i < n && w >= capital[ind[i]]) {
-        profit.push(profits[ind[i++]]);
+      while (i < n && capital[ind[i]] <= w) {
+        pq.push(profits[ind[i++]]);
       }
-      if (profit.size()) {
-        w += profit.top();
-        profit.pop();
+      if (pq.size()) {
+        w += pq.top();
+        pq.pop();
       }
     }
     return w;
