@@ -1,27 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
 class Solution {
- private:
-  long long func(vector<int>& time, long long x) {
+ public:
+  long long fun(vector<int>& time, unsigned long long x) {
+    int n = time.size();
     unsigned long long ans = 0;
-    for (int num : time) {
-      if (ans + x / num > LLONG_MAX) return LLONG_MAX;
-      ans += x / num;
+    for (int t : time) {
+      if (ans + x / t > LLONG_MAX) return LLONG_MAX;
+      ans += x / t;
     }
     return ans;
   }
-
- public:
   long long minimumTime(vector<int>& time, int totalTrips) {
-    unsigned long long left = 1, right = LLONG_MAX - 2;
-    while (left < right) {
-      unsigned long long mid = (right - left) / 2 + left;
-      if (func(time, mid) < totalTrips) {
-        left = mid + 1;
+    using usll = unsigned long long;
+    usll l = 1, r = 1e15;
+    while (l < r) {
+      usll mid = (r - l) / 2 + l;
+      if (fun(time, mid) < totalTrips) {
+        l = mid + 1;
       } else {
-        right = mid;
+        r = mid;
       }
     }
-    return left;
+    return l;
   }
 };
