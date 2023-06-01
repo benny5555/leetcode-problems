@@ -3,12 +3,11 @@
 #include "leetcode.h"
 using namespace std;
 class Solution {
- private:
-  bool dfs(TreeNode* p, TreeNode* q) {
-    if (!p && !q) return true;
-    if (!p || !q) return false;
-    if (p->val != q->val) return false;
-    return dfs(p->left, q->right) && dfs(p->right, q->left);
+  bool dfs(TreeNode* left, TreeNode* right) {
+    if (!left && !right) return true;
+    if (!left || !right) return false;
+    if (left->val != right->val) return false;
+    return dfs(left->left, right->right) && dfs(left->right, right->left);
   }
 
  public:

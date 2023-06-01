@@ -6,21 +6,22 @@ class Solution {
  public:
   int widthOfBinaryTree(TreeNode* root) {
     if (!root) return 0;
-    unsigned int ans = 1;
-    deque<pair<TreeNode*, unsigned int>> que;
-    que.push_back({root, 1});
+    int ans = 1;
+    queue<pair<TreeNode*, int>> que;
+    que.push(make_pair(root, 0));
+
     while (que.size()) {
-      int n = que.size();
-      auto first = que.front(), last = que.back();
-      ans = max(ans, last.second - first.second + 1);
+      int n = que.size(), start = que.front().second, end = que.back().second;
+      ans = max(ans, end - start + 1);
       for (int i = 0; i < n; ++i) {
         auto temp = que.front();
-        que.pop_front();
+        int ind = temp.second - start;
+        que.pop();
         if (temp.first->left) {
-          que.push_back({temp.first->left, 2 * temp.second});
+          que.push(make_pair(temp.first->left, (long long)2 * ind + 1));
         }
         if (temp.first->right) {
-          que.push_back({temp.first->right, 2 * temp.second + 1});
+          que.push(make_pair(temp.first->right, (long long)2 * ind + 2));
         }
       }
     }

@@ -2,19 +2,19 @@
 using namespace std;
 class Solution {
  public:
-  vector<int> longestObstacleCourseAtEachPosition(vector<int>& ans) {
+  vector<int> longestObstacleCourseAtEachPosition(vector<int>& obstacles) {
     vector<int> dp;
-    int n = ans.size();
+    int n = obstacles.size();
     for (int i = 0; i < n; ++i) {
-      if (dp.empty() || dp.back() <= ans[i]) {
-        dp.push_back(ans[i]);
-        ans[i] = dp.size();
+      if (dp.empty() || dp.back() <= obstacles[i]) {
+        dp.push_back(obstacles[i]);
+        obstacles[i] = dp.size();
       } else {
-        int ind = upper_bound(dp.begin(), dp.end(), ans[i]) - dp.begin();
-        dp[ind] = ans[i];
-        ans[i] = ++ind;
+        int ind = upper_bound(dp.begin(), dp.end(), obstacles[i]) - dp.begin();
+        dp[ind] = obstacles[i];
+        obstacles[i] = ++ind;
       }
     }
-    return ans;
+    return obstacles;
   }
 };

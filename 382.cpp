@@ -9,7 +9,7 @@ class Solution {
   Solution(ListNode* h) : head(h) {}
 
   int getRandom() {
-    int ans = 0;
+    int ans = 0, cnt = 0;
     auto cur = head;
     while (cur) {
       if (rand() % ++cnt == 0) {

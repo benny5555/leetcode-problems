@@ -3,8 +3,9 @@ using namespace std;
 class Solution {
  public:
   bool isBipartite(vector<vector<int>>& graph) {
-    vector<int> color(graph.size());
-    for (int i = 0; i < graph.size(); ++i) {
+    int n = graph.size();
+    vector<int> color(n);
+    for (int i = 0; i < n; ++i) {
       if (color[i]) continue;
       queue<int> que;
       color[i] = 1;
@@ -14,8 +15,9 @@ class Solution {
           if (!color[next]) {
             color[next] = -color[now];
             que.push(next);
-          } else if (color[next] == color[now])
+          } else if (color[next] == color[now]) {
             return false;
+          }
         }
       }
     }
